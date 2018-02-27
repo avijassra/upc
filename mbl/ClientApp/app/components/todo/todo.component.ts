@@ -17,7 +17,6 @@ export class TodoComponent {
     refershList() {
         this.http.get(this.baseUrl + 'api/Todo')
             .subscribe(result => {
-                debugger;
                 this.todos = result.json() as ITodo[];
             }, error => console.error(error));
     }
@@ -25,9 +24,10 @@ export class TodoComponent {
     addNewTodo(f: NgForm): void {
         debugger;
         //var formVal = f.value;
-        this.http.post(this.baseUrl + 'api/Todo', { title: this.newTodo })
+        this.http.post(this.baseUrl + 'api/Todo', this.newTodo)
             .subscribe(result => {
                 this.newTodo = '';
+                this.todos.push(result.json() as ITodo)
             }, error => console.error(error));
     }
 }

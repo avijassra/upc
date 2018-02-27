@@ -15,20 +15,21 @@ namespace mbl.Controllers
         TodoRepository repo = null;
 
         public TodoController() {
-            repo = new TodoRepository("TodosDB", "Todos", "mongodb://127.0.0.1:27017");
+            repo = new TodoRepository("TodoApp.db", "TodoColl");
         }
 
         [HttpGet]
-        public async Task<JsonResult>  Get() {
-            var allTodos = await repo.GetAll();
-
+        public JsonResult  Get() {
+            var allTodos = repo.GetAll();
             return Json(allTodos);
         }
 
         [HttpPost]
-        public async Task Post([FormBody]TodoModel entity) {
-            //var todo = new TodoModel(title);
-            await repo.Add(entity);
+        public JsonResult Post(string title) {
+            var todo = new TodoModel($"test {System.DateTime.Now}");
+            repo.Add(todo);
+
+            return Json(todo);
         }
     }
 }

@@ -4,8 +4,8 @@ namespace mbl.Data {
     using mbl.Domains;
 
     public class TodoRepository: RepositoryBase<TodoModel>, IRepository<TodoModel> {
-        public TodoRepository(string databaseName, string collectionName, string databaseUrl)
-            : base(databaseName, collectionName, databaseUrl) {
+        public TodoRepository(string databaseName, string collectionName)
+            : base(databaseName, collectionName) {
         }
     }
 }

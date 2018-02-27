@@ -1,28 +1,24 @@
 namespace mbl.Data {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using MongoDB.Bson;
-    using MongoDB.Driver;
+    using LiteDB;
     using mbl.Domains;
 
     public class RepositoryBase<T>: IRepository<T> 
         where T : IEntityModel {
-        protected IMongoCollection<T> Collection {get; set;}
+        protected string CollectionName {get; private set;}
 
-        public RepositoryBase(string databaseName, string collectionName, string databaseUrl) {
-            var client = new MongoClient(databaseUrl);
-            var database = client.GetDatabase(databaseName);
-            Collection = database.GetCollection<T>(collectionName);
+        protected LiteDatabase db;
+
+        public RepositoryBase(string databaseName, string collectionName) {
+            db = new LiteDatabase(databaseName);
+            CollectionName = collectionName;
         }
 
-        public async Task<List<T>> GetAll()
+        public IEnumerable<T> GetAll()
         {
-            var list = new List<T>();
-
-            var allDocuments = await Collection.FindAsync(new BsonDocument());
-            await allDocuments.ForEachAsync(doc => list.Add(doc));
-
-            return list;
+            var list = db.GetCollection<T>(CollectionName);
+            return list.FindAll();
         }
 
         public T GetById(int Id)
@@ -30,14 +26,15 @@ namespace mbl.Data {
             throw new System.NotImplementedException();
         }
 
-        public List<T> GetBy_()
+        public IEnumerable<T> GetBy_()
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task Add(T entity)
+        public void Add(T entity)
         {
-            await Collection.InsertOneAsync(entity);
+            var list = db.GetCollection<T>(CollectionName);
+            list.Insert(entity);
         }
 
         public void Update(T entity)

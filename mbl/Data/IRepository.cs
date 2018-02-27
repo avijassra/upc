@@ -3,13 +3,13 @@ namespace mbl.Data {
     using System.Threading.Tasks;
 
     public interface IRepository<T> {
-        Task<List<T>> GetAll();
+        IEnumerable<T> GetAll();
 
         T GetById(int Id);
 
-        List<T> GetBy_();
+        IEnumerable<T> GetBy_();
 
-        Task Add(T entity);
+        void Add(T entity);
 
         void Update(T entity);
     }

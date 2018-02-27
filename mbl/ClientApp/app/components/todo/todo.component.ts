@@ -24,8 +24,8 @@ export class TodoComponent {
 
     addNewTodo(f: NgForm): void {
         debugger;
-        var formVal = f.value;
-        this.http.post(this.baseUrl + 'api/Todo', formVal)
+        //var formVal = f.value;
+        this.http.post(this.baseUrl + 'api/Todo', { title: this.newTodo })
             .subscribe(result => {
                 this.newTodo = '';
             }, error => console.error(error));

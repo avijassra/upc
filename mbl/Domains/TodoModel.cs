@@ -4,6 +4,14 @@ namespace mbl.Domains {
 
     public class TodoModel: EntityBaseModel, IEntityModel
     {
+        // public TodoModel()
+        // {}
+
+        // public TodoModel(string title)
+        // {
+        //     this.Title = title;
+        // }
+
         [BsonRequired]
         public string Title { get; set; }
         

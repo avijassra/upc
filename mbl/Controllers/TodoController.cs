@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using mbl.Domains;
 using mbl.Data;
+using System.Net.Http;
 
 namespace mbl.Controllers
 {
@@ -14,7 +15,7 @@ namespace mbl.Controllers
         TodoRepository repo = null;
 
         public TodoController() {
-            repo = new TodoRepository("TodosDatabase", "Todos", "mongodb://127.0.0.1:27017");
+            repo = new TodoRepository("TodosDB", "Todos", "mongodb://127.0.0.1:27017");
         }
 
         [HttpGet]
@@ -25,7 +26,8 @@ namespace mbl.Controllers
         }
 
         [HttpPost]
-        public async Task Post(TodoModel entity) {
+        public async Task Post([FormBody]TodoModel entity) {
+            //var todo = new TodoModel(title);
             await repo.Add(entity);
         }
     }

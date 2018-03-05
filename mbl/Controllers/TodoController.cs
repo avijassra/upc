@@ -25,11 +25,18 @@ namespace mbl.Controllers
         }
 
         [HttpPost]
-        public JsonResult Post(string title) {
-            var todo = new TodoModel($"test {System.DateTime.Now}");
+        public JsonResult Post(NewTodo model) {
+            var abc = this.Request;
+            var todo = new TodoModel(model.Title);
             repo.Add(todo);
 
             return Json(todo);
         }
+    }
+
+    public class NewTodo {
+        public string Title { get; set; }
+
+        public bool IsWeb { get; set; }
     }
 }

@@ -24,7 +24,9 @@ export class TodoComponent {
     addNewTodo(f: NgForm): void {
         debugger;
         //var formVal = f.value;
-        this.http.post(this.baseUrl + 'api/Todo', this.newTodo)
+        //const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        //const options = new RequestOptions({ headers: headers });
+        this.http.post(this.baseUrl + 'api/Todo', {Title: f.value.newTodo, IsWeb: true})
             .subscribe(result => {
                 this.newTodo = '';
                 this.todos.push(result.json() as ITodo)

@@ -3,7 +3,7 @@
 <div>
     <form #f="ngForm" (ngSubmit)="addNewTodo(f)" novalidate>
             <input name="newTodo" ngModel required #newTodo="ngModel" >
-            <button >Add</button>
+            <button [disabled]="!f.form.valid" >Add</button>
     </form>
 </div>
 

@@ -25,18 +25,11 @@ namespace mbl.Controllers
         }
 
         [HttpPost]
-        public JsonResult Post([FromBody]NewTodo model) {
-            var abc = this.Request;
-            var todo = new TodoModel(model.Title);
+        public JsonResult Post([FromBody]TodoViewModel entity) {
+            var todo = new TodoModel(entity.Title);
             repo.Add(todo);
 
             return Json(todo);
         }
-    }
-
-    public class NewTodo {
-        public string Title { get; set; }
-
-        public bool IsWeb { get; set; }
     }
 }

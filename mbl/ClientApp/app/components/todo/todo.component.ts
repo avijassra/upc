@@ -8,7 +8,6 @@ import { NgForm } from '@angular/forms';
 })
 export class TodoComponent {
     public todos: ITodo[] = [];
-    newTodo = '';
 
     constructor(private http: Http, @Inject('BASE_URL') private baseUrl: string) {
         this.refershList();
@@ -22,13 +21,9 @@ export class TodoComponent {
     }
 
     addNewTodo(f: NgForm): void {
-        debugger;
-        //var formVal = f.value;
-        //const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-        //const options = new RequestOptions({ headers: headers });
-        this.http.post(this.baseUrl + 'api/Todo', {Title: f.value.newTodo, IsWeb: true})
+        this.http.post(this.baseUrl + 'api/Todo', {Title: f.value.newTodo})
             .subscribe(result => {
-                this.newTodo = '';
+                f.reset();
                 this.todos.push(result.json() as ITodo)
             }, error => console.error(error));
     }

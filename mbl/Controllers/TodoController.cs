@@ -25,7 +25,7 @@ namespace mbl.Controllers
         }
 
         [HttpPost]
-        public JsonResult Post(NewTodo model) {
+        public JsonResult Post([FromBody]NewTodo model) {
             var abc = this.Request;
             var todo = new TodoModel(model.Title);
             repo.Add(todo);
